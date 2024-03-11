@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Horizontal Carousel with Automatic Sliding</title>
+<style>
+  /* Styles for the carousel container */
+  .carousel {
+    width: 300px; /* Set the width of the carousel */
+    height: 200px; /* Set the height of the carousel */
+    overflow: hidden; /* Hide overflowing content */
+    position: relative; /* Positioning for absolute items */
+  }
+
+  /* Styles for each carousel item */
+  .carousel-item {
+    width: 300px; /* Set the width of each item */
+    height: 200px; /* Set the height of each item */
+    background-color: #ddd; /* Background color for each item */
+    display: inline-block; /* Display items in a row */
+    position: absolute; /* Positioning within the carousel */
+    transition: transform 0.5s ease; /* Smooth transition for sliding effect */
+  }
+</style>
+</head>
+<body>
+
+<div class="carousel">
+  <div class="carousel-item">Item 1</div>
+  <div class="carousel-item">Item 2</div>
+  <div class="carousel-item">Item 3</div>
+  <div class="carousel-item">Item 4</div>
+  <!-- Add more items as needed -->
+</div>
+
+<script>   
+  const carousel = document.querySelector('.carousel');
+  const carouselItems = document.querySelectorAll('.carousel-item');
+  let currentIndex = 0;
+
+  function slideNext() {
+    currentIndex = (currentIndex + 1) % carouselItems.length;
+    updateCarousel();
+  }
+
+  function updateCarousel() {
+    const offset = -currentIndex * carousel.clientWidth;
+    carouselItems.forEach(item => {
+      item.style.transform = `translateX(${offset}px)`;
+    });
+  }
+
+  // Automatically slide every 3 seconds
+  setInterval(slideNext, 3000);
+
+  // Update carousel on window resize
+  window.addEventListener('resize', updateCarousel);
+
+  // Initial update
+  updateCarousel();
+</script>
+
+</body>
+</html>
